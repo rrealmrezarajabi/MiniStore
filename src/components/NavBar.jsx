@@ -34,17 +34,6 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            isActive
-              ? "text-white font-semibold"
-              : "text-blue-200 hover:text-white transition"
-          }
-        >
-          About
-        </NavLink>
-
-        <NavLink
           to="/contact"
           className={({ isActive }) =>
             isActive
@@ -53,6 +42,16 @@ export default function Navbar() {
           }
         >
           Contact
+        </NavLink>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive
+              ? "text-white font-semibold"
+              : "text-blue-200 hover:text-white transition"
+          }
+        >
+          About
         </NavLink>
 
         <NavLink
