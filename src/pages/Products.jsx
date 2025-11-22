@@ -1,16 +1,29 @@
-import { useQuery } from "@tanstack/react-query"
-import {allProducts} from "../api/products"
+import { useQuery } from "@tanstack/react-query";
+import { allProducts } from "../api/products";
 import { Link } from "react-router-dom";
 const Products = () => {
-
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryFn: allProducts,
     queryKey: ["allProducts"],
   });
 
+  if (isLoading)
+    return (
+      <div className="text-center text-blue-400 text-2xl mt-20">
+        Loading products...
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="text-center text-red-400 text-2xl mt-20">
+        {error?.message || "Failed to load products"}
+      </div>
+    );
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {data.map((p) => (
+      {data?.map((p) => (
         <div
           key={p.id}
           className="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
@@ -39,4 +52,4 @@ const Products = () => {
   );
 };
 
-export default Products
+export default Products;
