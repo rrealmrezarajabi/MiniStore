@@ -14,7 +14,7 @@ const Home = () => {
         <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">
           Featured Products
         </h2>
-
+        {isError && <p className="text-center text-red-500">Error loading products.</p>}
         {isLoading ? (
           <p className="text-center text-blue-300">Loading products...</p>
         ) : (
