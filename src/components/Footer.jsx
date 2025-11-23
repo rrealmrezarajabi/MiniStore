@@ -106,7 +106,7 @@ const Footer = () => {
                 <FaGithub />
               </motion.a>
               <motion.a
-                href="https://www.linkedin.com/in/YOUR_LINKEDIN"
+                href="https://www.linkedin.com/in/mohamad-reza-rajabi-781678374/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, y: -5 }}
@@ -115,19 +115,10 @@ const Footer = () => {
               >
                 <FaLinkedin />
               </motion.a>
-              <motion.a
-                href="mailto:contact@ministore.com"
-                whileHover={{ scale: 1.2, y: -5 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-red-400 transition-colors text-2xl"
-              >
-                <FaEnvelope />
-              </motion.a>
             </div>
           </motion.div>
         </div>
 
-        {/* Copyright */}
         <motion.div
           variants={itemVariants}
           className="border-t border-gray-700 mt-8 pt-6 text-center"

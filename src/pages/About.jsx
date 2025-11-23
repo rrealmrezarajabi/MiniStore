@@ -73,7 +73,7 @@ export default function About() {
         </motion.a>
 
         <motion.a
-          href="https://www.linkedin.com/in/YOUR_LINKEDIN"
+          href="https://www.linkedin.com/in/mohamad-reza-rajabi-781678374/"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.2, y: -5 }}
