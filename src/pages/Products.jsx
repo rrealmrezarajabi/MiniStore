@@ -3,6 +3,7 @@ import { allProducts } from "../api/products";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -17,23 +18,66 @@ const Products = () => {
     p.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0, scale: 0.9 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      scale: 0.8,
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   if (isLoading)
     return (
-      <div className="text-center text-blue-400 text-2xl mt-20">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center text-blue-400 text-2xl mt-20"
+      >
         Loading products...
-      </div>
+      </motion.div>
     );
 
   if (isError)
     return (
-      <div className="text-center text-red-400 text-2xl mt-20">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center text-red-400 text-2xl mt-20"
+      >
         {error?.message || "Failed to load products"}
-      </div>
+      </motion.div>
     );
 
   return (
     <>
-      <div className="w-full flex justify-center mt-6 mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full flex justify-center mt-6 mb-8"
+      >
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -51,46 +95,69 @@ const Products = () => {
             focus:ring-2 focus:ring-blue-500/40
             transition"
         />
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {filteredProducts?.map((p) => (
-          <div
-            key={p.id}
-            className="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
-          >
-            <img
-              src={p.image}
-              alt={p.title}
-              className="h-48 object-contain mx-auto mb-4"
-            />
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredProducts?.map((p) => (
+            <motion.div
+              key={p.id}
+              variants={itemVariants}
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              exit="exit"
+              className="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all"
+            >
+              <motion.img
+                src={p.image}
+                alt={p.title}
+                className="h-48 object-contain mx-auto mb-4"
+                whileHover={{ scale: 1.1, rotate: 2 }}
+                transition={{ duration: 0.3 }}
+              />
 
-            <h2 className="text-lg font-semibold text-white mb-2 truncate">
-              {p.title}
-            </h2>
+              <h2 className="text-lg font-semibold text-white mb-2 truncate">
+                {p.title}
+              </h2>
 
-            <div className="flex flex-col justify-center items-center">
-              <p className="text-green-400 mb-3">${p.price}</p>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-green-400 mb-3 text-xl font-bold">
+                  ${p.price}
+                </p>
 
-              <div className="flex gap-3">
-                <Link
-                  to={`/products/${p.id}`}
-                  className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
-                >
-                  View Details
-                </Link>
+                <div className="flex gap-3 w-full">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex-1"
+                  >
+                    <Link
+                      to={`/products/${p.id}`}
+                      className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors block text-center text-sm font-semibold"
+                    >
+                      View Details
+                    </Link>
+                  </motion.div>
 
-                <button
-                  onClick={() => addToCart(p)}
-                  className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer"
-                >
-                  Add to Cart
-                </button>
+                  <motion.button
+                    onClick={() => addToCart(p)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer flex-1 text-sm font-semibold"
+                  >
+                    Add to Cart
+                  </motion.button>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </>
   );
 };

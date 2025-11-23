@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Contact() {
   const [showModal, setShowModal] = useState(false);
@@ -21,67 +22,123 @@ export default function Contact() {
     reset();
   };
 
-  return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white p-6">
-      {showModal && (
-        <div
-          className="
-    fixed bottom-4 left-1/2 -translate-x-1/2
-    bg-blue-500/40 
-    backdrop-blur-md 
-    border border-blue-300/30
-    text-white px-6 py-3 
-    rounded-xl 
-    shadow-xl 
-    transition-all duration-300
-    z-50
-  "
-        >
-          {modalMessage}
-        </div>
-      )}
-      <h1 className="text-3xl font-bold text-blue-400 mb-6">Contact Us</h1>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-md"
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white p-6"
+    >
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.8 }}
+            className="
+              fixed bottom-4 left-1/2 -translate-x-1/2
+              bg-blue-500/40 
+              backdrop-blur-md 
+              border border-blue-300/30
+              text-white px-6 py-3 
+              rounded-xl 
+              shadow-xl 
+              z-50
+            "
+          >
+            {modalMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.h1
+        variants={itemVariants}
+        className="text-3xl font-bold text-blue-400 mb-6"
       >
-        <div className="mb-4">
+        Contact Us
+      </motion.h1>
+
+      <motion.form
+        variants={itemVariants}
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-md border border-gray-700"
+      >
+        <motion.div variants={itemVariants} className="mb-4">
           <label className="block mb-2 font-semibold text-gray-200">Name</label>
           <input
             type="text"
             {...register("name", { required: "Name is required" })}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             placeholder="Enter your name"
           />
-          {errors.name && (
-            <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
-          )}
-        </div>
+          <AnimatePresence>
+            {errors.name && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-400 text-sm mt-1"
+              >
+                {errors.name.message}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-        <div className="mb-4">
+        <motion.div variants={itemVariants} className="mb-4">
           <label className="block mb-2 font-semibold text-gray-200">
             Message
           </label>
           <textarea
             {...register("message", { required: "Message is required" })}
-            className="w-full p-2 h-28 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-2 h-28 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             placeholder="Write your message..."
           ></textarea>
-          {errors.message && (
-            <p className="text-red-400 text-sm mt-1">
-              {errors.message.message}
-            </p>
-          )}
-        </div>
+          <AnimatePresence>
+            {errors.message && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-red-400 text-sm mt-1"
+              >
+                {errors.message.message}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-        <button
+        <motion.button
           type="submit"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           className="bg-blue-600 hover:bg-blue-500 w-full py-2 rounded-lg text-white font-semibold transition-colors"
         >
           Send Message
-        </button>
-      </form>
-    </div>
+        </motion.button>
+      </motion.form>
+    </motion.div>
   );
 }

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const CartContext = createContext();
 
@@ -34,7 +35,7 @@ export function CartProvider({ children }) {
 
     setTimeout(() => {
       setShowModal(false);
-    }, 1500);
+    }, 2000);
   };
 
   const removeFromCart = (id) => {
@@ -48,13 +49,12 @@ export function CartProvider({ children }) {
     );
   };
   const decreaseQty = (id) => {
-    setCartItems(
-      (prevItems) =>
-        prevItems
-          .map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-          )
-          .filter((item) => item.quantity > 0) // اگر صفر شد حذف بشه
+    setCartItems((prevItems) =>
+      prevItems
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0)
     );
   };
 
@@ -75,11 +75,31 @@ export function CartProvider({ children }) {
 
   return (
     <CartContext.Provider value={value}>
-      {showModal && (
-        <div className="fixed top-4 right-1/10 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 ">
-          {modalMessage}
-        </div>
-      )}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0, x: 100, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 100, scale: 0.8 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 25,
+            }}
+            className="fixed top-4 right-4 bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-3 rounded-lg shadow-2xl z-50 border border-green-400/30 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.1, type: "spring", stiffness: 400 }}
+              className="flex items-center gap-2"
+            >
+              <span className="text-xl">✓</span>
+              <span className="font-semibold">{modalMessage}</span>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {children}
     </CartContext.Provider>
