@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
+import {useCart} from "../context/CartContext"
 
 export default function Navbar() {
-  const cartCount = 0; 
-
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  
   return (
     <nav className="bg-blue-700 p-4 flex justify-between items-center shadow-lg">
       <div className="text-2xl font-bold text-white tracking-wide">

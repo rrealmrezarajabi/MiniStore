@@ -2,19 +2,29 @@ import Hero from "../components/Hero";
 import { useQuery } from "@tanstack/react-query";
 import { featuredProducts } from "../api/products";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
 const Home = () => {
+  const { addToCart } = useCart();
+
   const { data, isLoading, isError } = useQuery({
     queryFn: featuredProducts,
     queryKey: ["featuredProducts"],
   });
+
   return (
     <div>
       <Hero />
+
       <section className="p-10">
         <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">
           Featured Products
         </h2>
-        {isError && <p className="text-center text-red-500">Error loading products.</p>}
+
+        {isError && (
+          <p className="text-center text-red-500">Error loading products.</p>
+        )}
+
         {isLoading ? (
           <p className="text-center text-blue-300">Loading products...</p>
         ) : (
@@ -30,7 +40,7 @@ const Home = () => {
                   flex flex-col items-center 
                   hover:scale-105 
                   transition 
-                  h-[360px] 
+                  h-[380px] 
                   justify-between
                 "
               >
@@ -40,18 +50,27 @@ const Home = () => {
                   className="h-40 object-contain"
                 />
 
-                <h3 className="font-semibold text-center line-clamp-2">
+                <h3 className="font-semibold text-center line-clamp-2 text-white">
                   {product.title}
                 </h3>
 
                 <p className="text-green-400 font-bold">${product.price}</p>
 
-                <Link
-                  to={`/products/${product.id}`}
-                  className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-white"
-                >
-                  View Details
-                </Link>
+                <div className="flex gap-3">
+                  <Link
+                    to={`/products/${product.id}`}
+                    className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-white"
+                  >
+                    View Details
+                  </Link>
+
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-white cursor-pointer"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             ))}
           </div>

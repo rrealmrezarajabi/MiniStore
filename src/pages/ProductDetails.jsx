@@ -1,13 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { productsDetails } from "../api/products";
 import { Link, useParams } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
 const ProductDetails = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["product", id],
     queryFn: () => productsDetails(id),
   });
+
   if (isLoading)
     return (
       <div className="text-center text-blue-400 text-2xl mt-20">
@@ -29,6 +33,7 @@ const ProductDetails = () => {
         alt={data.title}
         className="h-60 object-contain mx-auto mb-6"
       />
+
       <h1 className="text-3xl font-bold text-blue-400 mb-4">{data.title}</h1>
 
       <p className="text-gray-300 mb-4 max-w-2xl mx-auto">{data.description}</p>
@@ -37,12 +42,21 @@ const ProductDetails = () => {
         Price: ${data.price}
       </p>
 
-      <Link
-        to="/products"
-        className=" w-[200px] bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
-      >
-        ← Back to Products
-      </Link>
+      <div className="flex gap-4 mt-4">
+        <Link
+          to="/products"
+          className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
+        >
+          ← Back to Products
+        </Link>
+
+        <button
+          onClick={() => addToCart(data)}
+          className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer"
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 };

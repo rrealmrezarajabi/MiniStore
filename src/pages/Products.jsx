@@ -2,18 +2,20 @@ import { useQuery } from "@tanstack/react-query";
 import { allProducts } from "../api/products";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-const Products = () => {
+import { useCart } from "../context/CartContext";
 
-  const [search,setSearch] = useState("");
+const Products = () => {
+  const [search, setSearch] = useState("");
+  const { addToCart } = useCart();
+
   const { data, isLoading, isError, error } = useQuery({
     queryFn: allProducts,
     queryKey: ["allProducts"],
   });
 
-let filteredProducts = data?.filter(p =>
-  p.title.toLowerCase().includes(search.toLowerCase())
-);
-
+  let filteredProducts = data?.filter((p) =>
+    p.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   if (isLoading)
     return (
@@ -38,16 +40,16 @@ let filteredProducts = data?.filter(p =>
           type="text"
           placeholder="Search..."
           className="w-full max-w-md px-4 py-3
-      rounded-2xl
-      bg-slate-800/60
-      border border-slate-700
-      text-slate-200
-      placeholder-slate-400
-      shadow-lg shadow-black/30
-      focus:outline-none
-      focus:border-blue-500
-      focus:ring-2 focus:ring-blue-500/40
-      transition"
+            rounded-2xl
+            bg-slate-800/60
+            border border-slate-700
+            text-slate-200
+            placeholder-slate-400
+            shadow-lg shadow-black/30
+            focus:outline-none
+            focus:border-blue-500
+            focus:ring-2 focus:ring-blue-500/40
+            transition"
         />
       </div>
 
@@ -62,18 +64,29 @@ let filteredProducts = data?.filter(p =>
               alt={p.title}
               className="h-48 object-contain mx-auto mb-4"
             />
+
             <h2 className="text-lg font-semibold text-white mb-2 truncate">
               {p.title}
             </h2>
+
             <div className="flex flex-col justify-center items-center">
               <p className="text-green-400 mb-3">${p.price}</p>
 
-              <Link
-                to={`/products/${p.id}`}
-                className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
-              >
-                View Details
-              </Link>
+              <div className="flex gap-3">
+                <Link
+                  to={`/products/${p.id}`}
+                  className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
+                >
+                  View Details
+                </Link>
+
+                <button
+                  onClick={() => addToCart(p)}
+                  className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         ))}
