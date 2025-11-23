@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { allProducts } from "../api/products";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 const Products = () => {
+
+  const [search,setSearch] = useState("");
   const { data, isLoading, isError, error } = useQuery({
     queryFn: allProducts,
     queryKey: ["allProducts"],
   });
+
+let filteredProducts = data?.filter(p =>
+  p.title.toLowerCase().includes(search.toLowerCase())
+);
+
 
   if (isLoading)
     return (
@@ -22,33 +30,55 @@ const Products = () => {
     );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {data?.map((p) => (
-        <div
-          key={p.id}
-          className="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
-        >
-          <img
-            src={p.image}
-            alt={p.title}
-            className="h-48 object-contain mx-auto mb-4"
-          />
-          <h2 className="text-lg font-semibold text-white mb-2 truncate">
-            {p.title}
-          </h2>
-          <div className="flex flex-col justify-center items-center">
-            <p className="text-green-400 mb-3">${p.price}</p>
+    <>
+      <div className="w-full flex justify-center mt-6 mb-8">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          placeholder="Search..."
+          className="w-full max-w-md px-4 py-3
+      rounded-2xl
+      bg-slate-800/60
+      border border-slate-700
+      text-slate-200
+      placeholder-slate-400
+      shadow-lg shadow-black/30
+      focus:outline-none
+      focus:border-blue-500
+      focus:ring-2 focus:ring-blue-500/40
+      transition"
+        />
+      </div>
 
-            <Link
-              to={`/products/${p.id}`}
-              className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
-            >
-              View Details
-            </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {filteredProducts?.map((p) => (
+          <div
+            key={p.id}
+            className="bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform"
+          >
+            <img
+              src={p.image}
+              alt={p.title}
+              className="h-48 object-contain mx-auto mb-4"
+            />
+            <h2 className="text-lg font-semibold text-white mb-2 truncate">
+              {p.title}
+            </h2>
+            <div className="flex flex-col justify-center items-center">
+              <p className="text-green-400 mb-3">${p.price}</p>
+
+              <Link
+                to={`/products/${p.id}`}
+                className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
+              >
+                View Details
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 
