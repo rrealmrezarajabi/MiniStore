@@ -86,7 +86,7 @@ export function CartProvider({ children }) {
               stiffness: 300,
               damping: 25,
             }}
-            className="fixed top-4 right-4 bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-3 rounded-lg shadow-2xl z-50 border border-green-400/30 backdrop-blur-sm"
+            className="fixed top-4 right-4 bg-linear-to-r from-green-600 to-green-500 text-white px-6 py-3 rounded-lg shadow-2xl z-50 border border-green-400/30 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0 }}

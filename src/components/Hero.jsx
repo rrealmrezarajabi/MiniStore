@@ -42,17 +42,17 @@ const Hero = () => {
       animate="visible"
       variants={containerVariants}
       className="
-        h-[80vh]
+        h-[60vh] sm:h-[70vh] md:h-[80vh]
         flex flex-col items-center justify-center
         text-center relative overflow-hidden
         bg-gradient-to-br from-blue-700/80 via-indigo-800/80 to-purple-900/80
-        backdrop-blur-xl rounded-2xl shadow-2xl p-10
+        backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-6 md:p-10
         border border-white/10
       "
     >
       {/* Animated background orbs */}
       <motion.div
-        className="absolute w-96 h-96 bg-blue-500/40 blur-[140px] rounded-full -top-20 -left-20"
+        className="absolute w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-blue-500/40 blur-[100px] sm:blur-[120px] md:blur-[140px] rounded-full -top-10 sm:-top-20 -left-10 sm:-left-20"
         animate={{
           x: [0, 50, 0],
           y: [0, 30, 0],
@@ -65,7 +65,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute w-96 h-96 bg-indigo-500/40 blur-[140px] rounded-full -bottom-20 -right-20"
+        className="absolute w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-indigo-500/40 blur-[100px] sm:blur-[120px] md:blur-[140px] rounded-full -bottom-10 sm:-bottom-20 -right-10 sm:-right-20"
         animate={{
           x: [0, -50, 0],
           y: [0, -30, 0],
@@ -78,7 +78,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute w-72 h-72 bg-purple-500/30 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="absolute w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-purple-500/30 blur-[80px] sm:blur-[100px] md:blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -95,7 +95,7 @@ const Hero = () => {
         <motion.h1
           variants={floatingVariants}
           animate="animate"
-          className="text-6xl md:text-7xl font-extrabold mb-6 drop-shadow-2xl text-white"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 sm:mb-6 drop-shadow-2xl text-white px-4"
         >
           Welcome to{" "}
           <span className="bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
@@ -106,7 +106,7 @@ const Hero = () => {
 
       <motion.p
         variants={itemVariants}
-        className="text-xl md:text-2xl max-w-2xl mb-10 text-white/95 leading-relaxed"
+        className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-2xl mb-6 sm:mb-8 md:mb-10 text-white/95 leading-relaxed px-4"
       >
         Discover the best products at the best prices. Fast, simple, and modern
         shopping experience.
@@ -120,8 +120,8 @@ const Hero = () => {
               relative
               bg-gradient-to-r from-blue-600 to-indigo-600
               hover:from-blue-500 hover:to-indigo-500
-              px-10 py-4 rounded-xl 
-              text-white text-xl font-bold 
+              px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-xl 
+              text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold 
               shadow-2xl backdrop-blur-md
               transition-all duration-300
               inline-block
@@ -148,7 +148,7 @@ const Hero = () => {
 
       {/* Decorative elements */}
       <motion.div
-        className="absolute top-10 left-10 w-2 h-2 bg-yellow-400 rounded-full"
+        className="absolute top-4 left-4 sm:top-10 sm:left-10 w-2 h-2 bg-yellow-400 rounded-full hidden sm:block"
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.5, 1, 0.5],
@@ -160,7 +160,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-10 right-10 w-3 h-3 bg-pink-400 rounded-full"
+        className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 w-3 h-3 bg-pink-400 rounded-full hidden sm:block"
         animate={{
           scale: [1, 1.5, 1],
           opacity: [0.5, 1, 0.5],

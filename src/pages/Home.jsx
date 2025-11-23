@@ -39,12 +39,12 @@ const Home = () => {
     <div>
       <Hero />
 
-      <section className="p-10">
+      <section className="p-4 sm:p-6 md:p-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl font-bold text-blue-400 mb-8 text-center"
+          className="text-2xl sm:text-3xl font-bold text-blue-400 mb-6 sm:mb-8 text-center"
         >
           Featured Products
         </motion.h2>
@@ -72,7 +72,7 @@ const Home = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
           >
             {data.map((product, index) => (
               <motion.div
@@ -82,12 +82,12 @@ const Home = () => {
                 whileTap={{ scale: 0.95 }}
                 className="
                   bg-gray-800 
-                  p-4 
+                  p-3 sm:p-4 
                   rounded-xl 
                   shadow-lg 
                   flex flex-col items-center 
                   transition 
-                  h-[380px] 
+                  min-h-[350px] sm:h-[380px]
                   justify-between
                   border border-gray-700
                   hover:border-blue-500
@@ -98,20 +98,20 @@ const Home = () => {
                 <motion.img
                   src={product.image}
                   alt={product.title}
-                  className="h-40 object-contain"
+                  className="h-32 sm:h-36 md:h-40 object-contain w-full"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 />
 
-                <h3 className="font-semibold text-center line-clamp-2 text-white">
+                <h3 className="font-semibold text-center line-clamp-2 text-white text-sm sm:text-base">
                   {product.title}
                 </h3>
 
-                <p className="text-green-400 font-bold text-xl">
+                <p className="text-green-400 font-bold text-lg sm:text-xl">
                   ${product.price}
                 </p>
 
-                <div className="flex gap-3 w-full justify-center">
+                <div className="flex gap-2 sm:gap-3 w-full justify-center">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -119,7 +119,7 @@ const Home = () => {
                   >
                     <Link
                       to={`/products/${product.id}`}
-                      className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-white transition-colors block text-center text-sm font-semibold"
+                      className="bg-blue-600 hover:bg-blue-500 px-2 sm:px-3 md:px-4 py-2 rounded-lg text-white transition-colors block text-center text-xs sm:text-sm font-semibold"
                     >
                       View Details
                     </Link>
@@ -129,7 +129,7 @@ const Home = () => {
                     onClick={() => addToCart(product)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-white cursor-pointer transition-colors flex-1 text-sm font-semibold"
+                    className="bg-green-600 hover:bg-green-500 px-2 sm:px-3 md:px-4 py-2 rounded-lg text-white cursor-pointer transition-colors flex-1 text-xs sm:text-sm font-semibold"
                   >
                     Add to Cart
                   </motion.button>

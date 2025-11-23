@@ -49,7 +49,7 @@ export default function Contact() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white p-6"
+      className="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white p-4 sm:p-6"
     >
       <AnimatePresence>
         {showModal && (
@@ -62,10 +62,12 @@ export default function Contact() {
               bg-blue-500/40 
               backdrop-blur-md 
               border border-blue-300/30
-              text-white px-6 py-3 
+              text-white px-4 sm:px-6 py-2 sm:py-3 
               rounded-xl 
               shadow-xl 
               z-50
+              text-sm sm:text-base
+              max-w-[90%] sm:max-w-none
             "
           >
             {modalMessage}
@@ -75,7 +77,7 @@ export default function Contact() {
 
       <motion.h1
         variants={itemVariants}
-        className="text-3xl font-bold text-blue-400 mb-6"
+        className="text-2xl sm:text-3xl font-bold text-blue-400 mb-4 sm:mb-6"
       >
         Contact Us
       </motion.h1>
@@ -83,7 +85,7 @@ export default function Contact() {
       <motion.form
         variants={itemVariants}
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-md border border-gray-700"
+        className="bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-lg w-full max-w-md border border-gray-700"
       >
         <motion.div variants={itemVariants} className="mb-4">
           <label className="block mb-2 font-semibold text-gray-200">Name</label>

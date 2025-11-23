@@ -62,43 +62,50 @@ const ProductDetails = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="p-10 text-center flex flex-col items-center"
+      className="p-4 sm:p-6 md:p-10 text-center flex flex-col items-center"
     >
       <motion.img
         variants={itemVariants}
         src={data.image}
         alt={data.title}
-        className="h-60 object-contain mx-auto mb-6"
+        className="h-48 sm:h-56 md:h-60 object-contain mx-auto mb-4 sm:mb-6 w-full max-w-md"
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ duration: 0.3 }}
       />
 
       <motion.h1
         variants={itemVariants}
-        className="text-3xl md:text-4xl font-bold text-blue-400 mb-4"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400 mb-3 sm:mb-4 px-4"
       >
         {data.title}
       </motion.h1>
 
       <motion.p
         variants={itemVariants}
-        className="text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed"
+        className="text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base px-4"
       >
         {data.description}
       </motion.p>
 
       <motion.p
         variants={itemVariants}
-        className="text-green-400 text-2xl font-bold mb-6"
+        className="text-green-400 text-xl sm:text-2xl font-bold mb-4 sm:mb-6"
       >
         Price: ${data.price}
       </motion.p>
 
-      <motion.div variants={itemVariants} className="flex gap-4 mt-4">
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+      <motion.div
+        variants={itemVariants}
+        className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 w-full sm:w-auto px-4"
+      >
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full sm:w-auto"
+        >
           <Link
             to="/products"
-            className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors"
+            className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors block text-center text-sm sm:text-base"
           >
             ← Back to Products
           </Link>
@@ -108,7 +115,7 @@ const ProductDetails = () => {
           onClick={() => addToCart(data)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer"
+          className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer w-full sm:w-auto text-sm sm:text-base"
         >
           Add to Cart
         </motion.button>

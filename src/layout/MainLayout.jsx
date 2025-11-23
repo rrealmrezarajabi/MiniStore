@@ -38,7 +38,7 @@ const MainLayout = ({ children }) => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="p-6 flex-1"
+        className="p-2 sm:p-4 md:p-6 flex-1"
       >
         {children}
       </motion.main>

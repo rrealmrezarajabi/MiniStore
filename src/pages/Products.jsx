@@ -76,14 +76,14 @@ const Products = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full flex justify-center mt-6 mb-8"
+        className="w-full flex justify-center mt-4 sm:mt-6 mb-6 sm:mb-8 px-4"
       >
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search..."
-          className="w-full max-w-md px-4 py-3
+          className="w-full max-w-md px-4 py-2 sm:py-3
             rounded-2xl
             bg-slate-800/60
             border border-slate-700
@@ -93,7 +93,7 @@ const Products = () => {
             focus:outline-none
             focus:border-blue-500
             focus:ring-2 focus:ring-blue-500/40
-            transition"
+            transition text-sm sm:text-base"
         />
       </motion.div>
 
@@ -101,7 +101,7 @@ const Products = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto px-4"
       >
         <AnimatePresence mode="popLayout">
           {filteredProducts?.map((p) => (
@@ -111,26 +111,26 @@ const Products = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
               exit="exit"
-              className="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all"
+              className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all"
             >
               <motion.img
                 src={p.image}
                 alt={p.title}
-                className="h-48 object-contain mx-auto mb-4"
+                className="h-40 sm:h-48 object-contain mx-auto mb-3 sm:mb-4 w-full"
                 whileHover={{ scale: 1.1, rotate: 2 }}
                 transition={{ duration: 0.3 }}
               />
 
-              <h2 className="text-lg font-semibold text-white mb-2 truncate">
+              <h2 className="text-base sm:text-lg font-semibold text-white mb-2 truncate">
                 {p.title}
               </h2>
 
               <div className="flex flex-col justify-center items-center">
-                <p className="text-green-400 mb-3 text-xl font-bold">
+                <p className="text-green-400 mb-3 text-lg sm:text-xl font-bold">
                   ${p.price}
                 </p>
 
-                <div className="flex gap-3 w-full">
+                <div className="flex gap-2 sm:gap-3 w-full">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -138,7 +138,7 @@ const Products = () => {
                   >
                     <Link
                       to={`/products/${p.id}`}
-                      className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors block text-center text-sm font-semibold"
+                      className="bg-blue-600 hover:bg-blue-500 text-white py-2 px-2 sm:px-4 rounded-lg transition-colors block text-center text-xs sm:text-sm font-semibold"
                     >
                       View Details
                     </Link>
@@ -148,7 +148,7 @@ const Products = () => {
                     onClick={() => addToCart(p)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-colors cursor-pointer flex-1 text-sm font-semibold"
+                    className="bg-green-600 hover:bg-green-500 text-white py-2 px-2 sm:px-4 rounded-lg transition-colors cursor-pointer flex-1 text-xs sm:text-sm font-semibold"
                   >
                     Add to Cart
                   </motion.button>
